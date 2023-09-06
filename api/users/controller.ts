@@ -25,4 +25,22 @@ async function usersRegisteration(request: Request, response: Response) {
     }
 }
 
-export { usersRegisteration }
+async function userLogin(request: Request, response: Response) {
+    try {
+        const loginUser = request.body;
+        console.log(loginUser);
+        const emailCheckQuery = 'select * from users where email = ? and password = ?'
+        const checkingEmail: any = await pool.execute(emailCheckQuery, [loginUser.Email, loginUser.Password])
+        console.log(checkingEmail[0]);
+        if (checkingEmail[0].length === 0) {
+            response.send("Email or Password is not available")
+        } else {
+            response.send(checkingEmail[0][0])
+        }
+    } catch (error) {
+        console.log(error)
+        response.status(400).send(error)
+    }
+}
+
+export { usersRegisteration, userLogin }

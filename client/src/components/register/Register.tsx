@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import {
-    MDBBtn,
+    // MDBBtn,
     MDBContainer,
     MDBRow,
     MDBCol,
@@ -11,9 +11,9 @@ import {
     // MDBIcon,
     // MDBCheckbox
 }
-from 'mdb-react-ui-kit';
+    from 'mdb-react-ui-kit';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 function Register() {
     const [firstName, setFirstName] = useState("");
@@ -100,7 +100,7 @@ function Register() {
                                     <label>Email</label>
                                     <MDBInput value={email} onChange={(e) => setEmail(e.target.value)} id='form3' type='email' />
                                     <p ref={errorEmail} className='errorInput'>Fill the input to continue</p>
-                                    <p ref={correctEmail} className='errorInput'>Fill the Email adress correct</p>
+                                    <p ref={correctEmail} className='errorInput'>Please use a valid email address</p>
                                 </div>
 
                                 <div className="mb-4">
@@ -109,7 +109,11 @@ function Register() {
                                     <p ref={errorPassword} className='errorInput'>The password shoul be a 4 characters</p>
                                 </div>
 
-                                <MDBBtn onClick={ClickRegister} className='mb-4' size='lg'>Register</MDBBtn>
+                                <button onClick={ClickRegister} className='loginBtn'>Register</button>
+                                <div className='registerDiv'>
+                                    <p className='pRegister'>Already a member?</p>
+                                    <Link to="/login">Login</Link>
+                                </div>
 
                             </MDBCol>
 

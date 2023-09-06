@@ -3,9 +3,11 @@ import { pool } from "../database/index";
 
 async function getAllVacations(request: Request, response: Response) {
     try {
-
+        const result = await pool.query(`SELECT * FROM VACATIONS`)
+        console.log(result);
+        response.send(result[0]);
     } catch (error) {
-
+        response.status(400).send(error)
     }
 }
 

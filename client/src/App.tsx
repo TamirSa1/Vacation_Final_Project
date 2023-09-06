@@ -22,11 +22,6 @@ const routes = [
   component: <Vacations></Vacations>,
   key: "vacations"
 }
-// {
-//   path: "/newGame",
-//   component: <NewGame></NewGame>,
-//   key: "newGame"
-// }
 ]
 
 function App() {

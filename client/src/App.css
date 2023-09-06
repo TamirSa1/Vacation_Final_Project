@@ -2,3 +2,21 @@
     display: none;
     color: red
 }
+
+.loginBtn{
+    width: 150px;
+    background-color: #0D6EFD;
+    padding: 5px;
+    color: white;
+    border-radius: var(--bs-border-radius-lg);
+    border: 0px;
+}
+
+.pRegister{
+    color: rgb(197, 187, 187);
+    margin: 0px;
+}
+
+.registerDiv{
+    margin: 10px;
+}
