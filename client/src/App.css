@@ -1,9 +1,9 @@
-.errorInput{
+.errorInput {
     display: none;
     color: red
 }
 
-.loginBtn{
+.loginBtn {
     width: 150px;
     background-color: #0D6EFD;
     padding: 5px;
@@ -12,11 +12,71 @@
     border: 0px;
 }
 
-.pRegister{
+.pRegister {
     color: rgb(197, 187, 187);
     margin: 0px;
 }
 
-.registerDiv{
+.registerDiv {
     margin: 10px;
+}
+
+.divCard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.cardVacation {
+    width: 450px;
+    margin: 10px;
+    height: 450px;
+    background-color: #f0f0f0;
+    padding: 5px;
+}
+
+.CardHeader {
+    font-family: 'Dancing Script', cursive;
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.cardImg {
+    height: 200px;
+    width: fit-content;
+    margin: 3px;
+}
+
+.priceCard {
+    background-color: #0D6EFD;
+    color: aliceblue;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 120px;
+    margin: 3px;
+}
+
+.vacationH1 {
+    text-align: center;
+}
+
+.cardDescription {
+    padding: 3px;
+    min-height: 50px;
+}
+
+.date {
+    background-color: deepskyblue;
+    color: white;
+    text-align: center;
+    font-weight: 700;
+}
+
+.bi-calendar2-event {
+    margin-right: 5px;
+}
+
+.pagination {
+    justify-content: center;
+    margin-top: 10px;
 }
