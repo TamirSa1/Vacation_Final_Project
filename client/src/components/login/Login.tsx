@@ -56,7 +56,8 @@ function Login() {
             if (result.data === "Email or Password is not available") {
                 alert("Email or Password is not available");
             } else {
-                navigate("/vacation")
+                localStorage.setItem("user", JSON.stringify(result.data));
+                navigate("/vacations")
             }
         } catch (error) {
             console.log(error);

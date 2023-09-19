@@ -1,8 +1,20 @@
+import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 function NavBar() {
+    const [admin, setAdmin] = useState<boolean>(false);
+
+    useEffect(() => {
+        let isLoggedIn: any = null
+        if (localStorage.getItem("user")) isLoggedIn = JSON.parse(localStorage.getItem("user") ?? '');
+        if (isLoggedIn && isLoggedIn.Role === 'Admin') {
+            setAdmin(true);
+        }
+
+    }, []);
+
     return (
         <div>
             <Navbar bg="primary" data-bs-theme="dark">
@@ -12,6 +24,9 @@ function NavBar() {
                         <Nav.Link href="/register">Register</Nav.Link>
                         <Nav.Link href="/login">Login</Nav.Link>
                         <Nav.Link href="/vacations">Vacations</Nav.Link>
+                        {admin ? <div>
+                            <Nav.Link href="/vacationsAdmin">Vacations admin</Nav.Link>
+                        </div> : ''}
                     </Nav>
                 </Container>
             </Navbar>

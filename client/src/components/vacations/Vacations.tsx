@@ -2,12 +2,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import CardVacation from "./CardVacation";
 import Pagination from 'react-bootstrap/Pagination';
+import ToggleButtons from "./ToggleButtons";
+import { useNavigate } from 'react-router-dom';
 
 function Vacations() {
     const [vacationsArray, setVacationsArray] = useState<any[]>([]);
     const [filteredArray, setFilteredArray] = useState<any[]>([]);
     const [items, setItems] = useState<any[]>([]);
     const [active, setActive] = useState<number>(1);
+    const navigate = useNavigate();
 
     useEffect(() => {
         let cardNumber = Math.ceil(vacationsArray.length / 10)
@@ -35,13 +38,27 @@ function Vacations() {
             console.log(error);
         }
     }
-    useEffect(() => {
-        getVacations()
-    }, [])
 
+    useEffect(() => {
+        let isLoggedIn: any = null
+        if (localStorage.getItem("user")) isLoggedIn = JSON.parse(localStorage.getItem("user") ?? '');
+        if (!isLoggedIn) {
+            navigate('/login');
+        }
+        else {
+            getVacations()
+        }
+    }, []);
+    
     return (
         <div>
             <h1 className="vacationH1">Vacations</h1>
+
+            <h4>Filterd vacation:</h4>
+
+            {/* <ToggleButtons vacationsArray={vacationsArray} setVacationsArray={setVacationsArray} /> */}
+            <ToggleButtons vacationsArray={vacationsArray} setFilteredArray={setFilteredArray} />
+
             <div className='divCard'>
                 {filteredArray.map(oneVacation => {
                     return (
