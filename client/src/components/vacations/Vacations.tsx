@@ -53,10 +53,8 @@ function Vacations() {
     return (
         <div>
             <h1 className="vacationH1">Vacations</h1>
-
             <h4>Filterd vacation:</h4>
 
-            {/* <ToggleButtons vacationsArray={vacationsArray} setVacationsArray={setVacationsArray} /> */}
             <ToggleButtons vacationsArray={vacationsArray} setFilteredArray={setFilteredArray} />
 
             <div className='divCard'>

@@ -5,10 +5,12 @@ const Popup = (props: any) => {
 
   return (
     <div className={showHideClassName}>
+      <div className='insidePopUpDiv'>
       <section className="modal-main">
         {props.children}
-        <Button onClick={props.handleClose} variant="secondary">Cancel</Button>
+        <Button onClick={props.handleClose} variant="secondary" className='cancelBtnPupup'>Cancel</Button>
       </section>
+      </div>
     </div>
   );
 };

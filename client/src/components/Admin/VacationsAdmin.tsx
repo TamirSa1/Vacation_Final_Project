@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import CardVacation from "./CardVacation";
+import CardVacationAdmin from "./CardVacationAdmin";
 import Pagination from 'react-bootstrap/Pagination';
 import { useNavigate } from 'react-router-dom';
 import Popup from './Popup';
@@ -18,7 +18,7 @@ function VacationsAdmin() {
     const [description, setDescription] = useState("");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
-    const [price, setPrice] = useState("");
+    const [price, setPrice] = useState<number>(0);
     const [image, setImage] = useState("");
 
     let errorDestination: any = useRef(null);
@@ -71,6 +71,12 @@ function VacationsAdmin() {
 
     function openPopUp() {
         setShowPopup(!showPopup);
+        setDestination("");
+        setDescription("");
+        setStartDate("");
+        setEndDate("");
+        setPrice(0);
+        setImage("");
     }
 
     function addAdminVacation() {
@@ -110,13 +116,13 @@ function VacationsAdmin() {
         } else {
             errorEndBeforeStart.current.style.display = "none";
         }
-        if (price === "") {
+        if (price === 0) {
             errorPrice.current.style.display = "block";
             return
         } else {
             errorPrice.current.style.display = "none";
         }
-        if (price < "0" || price > "10000") {
+        if (price < 0 || price > 10000) {
             errorPriceLarger.current.style.display = "block";
             return
         } else {
@@ -128,13 +134,37 @@ function VacationsAdmin() {
         } else {
             errorImage.current.style.display = "none";
         }
+        addVacation()
+    }
+
+    async function addVacation() {
+        let vacationObject = {
+            Destination: destination,
+            Description: description,
+            StartDate: startDate,
+            EndDate: endDate,
+            Price: price,
+            Image: image
+        }
+        try {
+            const result = await axios.post("http://localhost:4000/vacations/addVacation", vacationObject)
+            console.log(result.data);
+            let afterAddingArray = vacationsArray;
+            afterAddingArray.push(vacationObject);
+            setFilteredArray(afterAddingArray);
+            setVacationsArray(afterAddingArray);
+            setShowPopup(false);
+            alert("Vacation created successfully");
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
         <div>
             <h1 className="vacationH1">Vacations Admin</h1>
 
-            <Button onClick={openPopUp}>Add Vacation</Button>
+            <Button onClick={openPopUp} className="addVacationAdminBtn">Add Vacation</Button>
             <Popup show={showPopup} handleClose={openPopUp}>
 
                 <label>Add Destination</label>
@@ -145,21 +175,21 @@ function VacationsAdmin() {
                 <Form.Control value={description} onChange={(e) => setDescription(e.target.value)} as="textarea" rows={3} placeholder="Description" />
                 <p ref={errorDescription} className='errorInput'>Fill the input to continue</p>
 
-                <label>Add start date</label>
-                <Form.Control value={startDate} onChange={(e) => setStartDate(e.target.value)} type="date" />
+                <label>Add Start Date</label>
+                <Form.Control className="startDateInputPopup" value={startDate} onChange={(e) => setStartDate(e.target.value)} type="date" />
                 <p ref={errorStartDate} className='errorInput'>Fill the input to continue</p>
                 <p ref={errorCurrentStartDate} className='errorInput'>Start Date not valid</p>
 
-                <label>Add end date</label>
-                <Form.Control value={endDate} onChange={(e) => setEndDate(e.target.value)} type="date" />
+                <label>Add End Date</label>
+                <Form.Control className="endDateInputPopup" value={endDate} onChange={(e) => setEndDate(e.target.value)} type="date" />
                 <p ref={errorEndDate} className='errorInput'>Fill the input to continue</p>
                 <p ref={errorEndBeforeStart} className='errorInput'>End Date not valid</p>
 
                 <label>Add Price</label>
-                <Form.Control value={price} onChange={(e) => setPrice(e.target.value)} type="number" placeholder="Price" min={0} max={10000} />
+                <Form.Control className="priceInputPopup" value={price} onChange={(e: any) => setPrice(e.target.value)} type="number" placeholder="Price $" min={0} max={10000} />
                 <p ref={errorPrice} className='errorInput'>Fill the input to continue</p>
                 <p ref={errorPriceLarger} className='errorInput'>Price must be 0 - 10,000</p>
-                
+
                 <label>Add Image</label>
                 <Form.Control value={image} onChange={(e) => setImage(e.target.value)} type="text" placeholder="image url" />
                 <p ref={errorImage} className='errorInput'>Fill the input to continue</p>
@@ -171,7 +201,16 @@ function VacationsAdmin() {
                 {filteredArray.map(oneVacation => {
                     return (
                         <div key={oneVacation.VacationID}>
-                            <CardVacation cardProps={oneVacation}></CardVacation>
+                            <CardVacationAdmin
+                                cardProps={oneVacation} 
+                                vacationsArray={vacationsArray} 
+                                setVacationsArray={setVacationsArray} 
+                                setFilteredArray={setFilteredArray} 
+                                setShowPopup={setShowPopup}
+                                setDestination={setDestination}
+
+                                >
+                            </CardVacationAdmin>
                         </div>
                     )
                 })}

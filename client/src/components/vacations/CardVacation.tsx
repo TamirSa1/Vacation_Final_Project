@@ -1,14 +1,36 @@
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
+import { useNavigate } from "react-router-dom"
+import axios from 'axios';
 
 function CardVacation(props: any) {
-
+    const navigate = useNavigate();
     const options: any = { day: 'numeric', month: 'numeric', year: 'numeric' };
+
+    async function followButton() {
+        if (! localStorage.getItem("user")) {
+            navigate("/login")
+        } else {
+            const followerObject = {
+                FollowerUserID: JSON.parse(localStorage.getItem("user")!).UserID,
+                FollowedVacationID: props.cardProps.VacationID
+            }
+            try {
+                const result = await axios.post("http://localhost:4000/followers/adding" ,followerObject)
+                console.log(result.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
 
     return (
         <div>
 
             <Card className='cardVacation'>
-                <Card.Header className='CardHeader'>{props.cardProps.Destination}</Card.Header>
+                <Card.Content extra className='cardContent'>
+                    <Card.Header className='CardHeader'>{props.cardProps.Destination}</Card.Header>
+                    <button onClick={followButton} className='followBtn'>Follow</button>
+                </Card.Content>
                 <Image className='cardImg' src={props.cardProps.ImageFileName} />
                 <Card.Content>
                     <Card.Meta>
@@ -22,12 +44,6 @@ function CardVacation(props: any) {
                     </Card.Meta>
                     <Card.Description className='cardDescription'>{props.cardProps.Description}</Card.Description>
                     <Card className='priceCard'>Price - {props.cardProps.Price}$</Card>
-                </Card.Content>
-                <Card.Content extra>
-                    <a>
-                        <Icon name='user' />
-                        22 Likes
-                    </a>
                 </Card.Content>
             </Card>
 
