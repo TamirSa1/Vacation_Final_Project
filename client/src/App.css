@@ -30,7 +30,7 @@
 .cardVacation {
   width: 450px;
   margin: 10px;
-  height: 450px;
+  height: 500px;
   background-color: #f0f0f0;
   padding: 5px;
 }
@@ -142,57 +142,53 @@
   width: 150px;
 }
 
-.deleteBtnPopUp{
-
-}
-
 .cardContent{
   display: flex;
   justify-content: space-between;
 }
 
-.followBtn {
-  background-color: #0078d0;
-  border: 0;
-  border-radius: 56px;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  outline: 0;
-  padding: 16px 21px;
-  position: relative;
+.followBtn{
+  color: white;
+  border: 1px solid pink;
+  height: 40px;
+  width: 100px;
+  margin: 10px;
+  background-color: rgb(193, 78, 193);
+  border-radius: 100px;
+}
+
+.editAdminBtn{
+  color: white;
+  border: 1px solid rgb(181, 203, 57);
+  height: 30px;
+  width: 80px;
+  background-color: rgb(179, 198, 93);
+  border-radius: 100px;
+  margin: 3px;
+}
+
+.deleteAdminBtn{
+  color: white;
+  border: 1px solid rgb(142, 21, 47);
+  height: 30px;
+  width: 80px;
+  background-color: rgb(224, 17, 44);
+  border-radius: 100px;
+  margin: 3px;
+}
+
+.fa-user-circle-o{
+margin-left: 20px;
+display: flex;
+}
+
+.welcomeUser{
+
+}
+
+canvas {
+  width: 80%!important;
+  height: 500px!important;
   text-align: center;
-  text-decoration: none;
-  transition: all .3s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
-
-.followBtn:before {
-  background-color: initial;
-  background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
-  border-radius: 125px;
-  content: "";
-  height: 50%;
-  left: 4%;
-  opacity: .5;
-  position: absolute;
-  top: 0;
-  transition: all .3s;
-  width: 92%;
-}
-
-.followBtn:hover {
-  box-shadow: rgba(255, 255, 255, .2) 0 3px 15px inset, rgba(0, 0, 0, .1) 0 3px 5px, rgba(0, 0, 0, .1) 0 10px 13px;
-  transform: scale(1.05);
-}
-
-@media (min-width: 768px) {
-  .followBtn {
-    padding: 16px 48px;
-  }
+  margin: auto;
 }

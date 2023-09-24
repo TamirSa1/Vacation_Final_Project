@@ -13,13 +13,13 @@ function Vacations() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        let cardNumber = Math.ceil(vacationsArray.length / 10)
+        let cardNumber = Math.ceil(filteredArray.length / 10)
         let array = [];
         for (let number = 1; number <= cardNumber; number++) {
             array.push(number);
         }
         setItems(array);
-    }, [vacationsArray])
+    }, [filteredArray])
 
     function paginationClick(number: number) {
         setActive(number)
@@ -28,8 +28,9 @@ function Vacations() {
     }
 
     async function getVacations() {
+        const followerId = JSON.parse(localStorage.getItem("user")!).UserID;
         try {
-            const result = await axios.get("http://localhost:4000/vacations")
+            const result = await axios.get(`http://localhost:4000/vacations/${followerId}`)
             console.log(result.data);
             setVacationsArray(result.data);
             const firstTenElements = result.data.slice(0, 10);
@@ -49,7 +50,7 @@ function Vacations() {
             getVacations()
         }
     }, []);
-    
+
     return (
         <div>
             <h1 className="vacationH1">Vacations</h1>
@@ -61,7 +62,7 @@ function Vacations() {
                 {filteredArray.map(oneVacation => {
                     return (
                         <div key={oneVacation.VacationID}>
-                            <CardVacation cardProps={oneVacation}></CardVacation>
+                            <CardVacation cardProps={oneVacation} vacationsArray={vacationsArray} setVacationsArray={setVacationsArray} setFilteredArray={setFilteredArray}></CardVacation>
                         </div>
                     )
                 })}

@@ -5,10 +5,14 @@ import Navbar from 'react-bootstrap/Navbar';
 
 function NavBar() {
     const [admin, setAdmin] = useState<boolean>(false);
+    const [user, setUser] = useState<any>(null);
 
     useEffect(() => {
         let isLoggedIn: any = null
-        if (localStorage.getItem("user")) isLoggedIn = JSON.parse(localStorage.getItem("user") ?? '');
+        if (localStorage.getItem("user")) {
+            isLoggedIn = JSON.parse(localStorage.getItem("user") ?? '');
+            setUser(isLoggedIn);
+        }
         if (isLoggedIn && isLoggedIn.Role === 'Admin') {
             setAdmin(true);
         }
@@ -25,8 +29,10 @@ function NavBar() {
                         <Nav.Link href="/login">Login</Nav.Link>
                         <Nav.Link href="/vacations">Vacations</Nav.Link>
                         {admin ? <div>
-                            <Nav.Link href="/vacationsAdmin">Vacations admin</Nav.Link>
+                            <Nav.Link href="/vacationsAdmin">Vacations Admin</Nav.Link>
+                            <Nav.Link href="/vacationsReport">Vacations Report</Nav.Link>
                         </div> : ''}
+                        {user ? <p className='welcomeUser'>welcome {user.FirstName} {user.LastName}</p> : <p>welcome</p>}
                     </Nav>
                 </Container>
             </Navbar>

@@ -3,7 +3,7 @@ import { getAllVacations , createVacation, deleteVacation, editVacation} from ".
 
 const vacationsRouter = express.Router();
 
-vacationsRouter.get("/", getAllVacations);
+vacationsRouter.get("/:followerId", getAllVacations);
 
 vacationsRouter.post("/addVacation", createVacation);
 

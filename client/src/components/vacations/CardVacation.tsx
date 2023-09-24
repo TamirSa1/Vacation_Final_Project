@@ -1,13 +1,25 @@
 import { Card, Image } from 'semantic-ui-react'
 import { useNavigate } from "react-router-dom"
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import { useEffect, useState } from 'react';
 
 function CardVacation(props: any) {
+    const [isFollowing, setIsFollowing] = useState(false);
+    const [followersCount, setFollowersCount] = useState(props.cardProps.FollowerCount);
     const navigate = useNavigate();
     const options: any = { day: 'numeric', month: 'numeric', year: 'numeric' };
 
+    useEffect(() => {
+        if (props.cardProps.IsFollowing == 1) {
+            setIsFollowing(true);
+        } else {
+            setIsFollowing(false);
+        }
+    },[]);
+
     async function followButton() {
-        if (! localStorage.getItem("user")) {
+        if (!localStorage.getItem("user")) {
             navigate("/login")
         } else {
             const followerObject = {
@@ -15,13 +27,60 @@ function CardVacation(props: any) {
                 FollowedVacationID: props.cardProps.VacationID
             }
             try {
-                const result = await axios.post("http://localhost:4000/followers/adding" ,followerObject)
-                console.log(result.data);
+                if (isFollowing) {
+                    const result = await axios.delete(`http://localhost:4000/followers/removeFollower?FollowerUserID=${followerObject.FollowerUserID}&FollowedVacationID=${followerObject.FollowedVacationID}`)
+                    console.log(result.data);
+                    setIsFollowing(false);
+                    const changingArray = props.vacationsArray.map((vacation: any) => {
+                        if (vacation.VacationID === followerObject.FollowedVacationID) {
+                            vacation.IsFollowing = 0;
+                        }
+                        return vacation;
+                    })
+                    props.setVacationsArray(changingArray);
+                    props.setFilteredArray(changingArray);
+                    let number = followersCount;
+                    number -= 1;
+                    setFollowersCount(number);
+                } else {
+                    const result = await axios.post("http://localhost:4000/followers/adding", followerObject)
+                    console.log(result.data);
+                    setIsFollowing(true);
+                    const changingArray = props.vacationsArray.map((vacation: any) => {
+                        if (vacation.VacationID === followerObject.FollowedVacationID) {
+                            vacation.IsFollowing = 1;
+                        }
+                        return vacation;
+                    })
+                    props.setVacationsArray(changingArray);
+                    props.setFilteredArray(changingArray);
+                    let number = followersCount;
+                    number += 1;
+                    setFollowersCount(number);
+                }
             } catch (error) {
                 console.log(error);
             }
         }
     }
+
+    // useEffect(() => {
+    //     checkIfUserIsFollowing();
+    // }, []);
+
+    // async function checkIfUserIsFollowing() {
+    //     if (localStorage.getItem("user")) {
+    //         try {
+    //             const followerUserID = JSON.parse(localStorage.getItem("user")!).UserID;
+    //             const followedVacationID = props.cardProps.VacationID;
+    //             const response = await axios.get(`http://localhost:4000/followers/check?FollowerUserID=${followerUserID}&FollowedVacationID=${followedVacationID}`);
+    //             console.log(response.data);
+    //             setIsFollowing(response.data.isFollowing);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
+    // }
 
     return (
         <div>
@@ -29,7 +88,10 @@ function CardVacation(props: any) {
             <Card className='cardVacation'>
                 <Card.Content extra className='cardContent'>
                     <Card.Header className='CardHeader'>{props.cardProps.Destination}</Card.Header>
-                    <button onClick={followButton} className='followBtn'>Follow</button>
+                    <div>
+                        <Button onClick={followButton} className='followBtn' style={{ backgroundColor: isFollowing ? "#0D6EFD" : "rgb(193, 78, 193)" }}>{isFollowing ? "Unfollow" : "Follow"}</Button>
+                        <p className="fa fa-user-circle-o">Followers- {followersCount}</p>
+                    </div>
                 </Card.Content>
                 <Image className='cardImg' src={props.cardProps.ImageFileName} />
                 <Card.Content>

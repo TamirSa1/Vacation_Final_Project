@@ -4,6 +4,7 @@ import Register from './components/register/Register';
 import Login from './components/login/Login';
 import Vacations from './components/vacations/Vacations';
 import VacationsAdmin from "./components/Admin/VacationsAdmin"
+import VacationsReport from "./components/Admin/VacationsReport"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/home/Home';
 
@@ -27,6 +28,11 @@ const routes = [
     path: "/vacationsAdmin",
     component: <VacationsAdmin></VacationsAdmin>,
     key: "vacationsAdmin"
+  },
+  {
+    path: "/vacationsReport",
+    component: <VacationsReport></VacationsReport>,
+    key: "vacationsReport"
   }
 ]
 

@@ -2,8 +2,25 @@ import { Request, Response } from "express";
 import { pool } from "../database/index";
 
 async function getAllVacations(request: Request, response: Response) {
+    const followerId = request.params.followerId;
     try {
-        const result = await pool.query(`SELECT * FROM Vacations ORDER BY StartDate ASC;`)
+        const result = await pool.query(`
+        SELECT v.VacationID, v.Destination, v.Description, v.StartDate, v.EndDate, v.Price, v.ImageFileName,
+        COUNT(f.FollowedVacationID) AS FollowerCount,
+        CASE
+            WHEN EXISTS (
+                SELECT 1
+                FROM followers AS f
+                WHERE f.FollowedVacationID = v.VacationID AND f.FollowerUserID = ?
+            ) THEN 1
+            ELSE 0
+        END AS IsFollowing
+ FROM vacations AS v
+ LEFT JOIN followers AS f ON v.VacationID = f.FollowedVacationID
+ GROUP BY v.VacationID
+ ORDER BY v.StartDate ASC;
+
+        `, [followerId])
         console.log(result);
         response.send(result[0]);
     } catch (error) {
@@ -22,7 +39,7 @@ async function createVacation(request: Request, response: Response) {
             Image,
         } = request.body;
         console.log(request.body);
-        
+
         const query = `
             INSERT INTO Vacations (Destination, Description, StartDate, EndDate, Price, ImageFileName)
             VALUES (?, ?, ?, ?, ?, ?);
@@ -85,11 +102,11 @@ async function editVacation(request: Request, response: Response) {
             vacationID,
         ]);
 
-        response.status(204).send(); 
+        response.status(204).send();
     } catch (error) {
         console.error("Error updating vacation:", error);
         response.status(500).send("Internal Server Error");
     }
 }
 
-export { getAllVacations , createVacation, deleteVacation, editVacation}
+export { getAllVacations, createVacation, deleteVacation, editVacation }
