@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import axios from 'axios';
+import { CSVLink } from "react-csv";
 
 ChartJS.register(
     CategoryScale,
@@ -27,19 +28,24 @@ ChartJS.register(
 function VacationsReport() {
     const [destinationsArray, setDestinationsArray] = useState<any[]>([]);
     const [followersArray, setFollowersArray] = useState<any[]>([]);
+    const [arrayCsv, setArrayCsv] = useState<any[]>([]);
 
     const options = {
         plugins: {
             title: {
                 display: true,
                 text: 'Vacations Report',
+                font : {
+                    size :25,
+                    family : 'Helvetica'
+                }
             },
         },
     };
-    
-    
+
+
     const data = {
-        labels:destinationsArray,
+        labels: destinationsArray,
         datasets: [
             {
                 label: 'Followers Number',
@@ -63,6 +69,13 @@ function VacationsReport() {
                 return vacation.FollowerCount
             });
             setFollowersArray(yArray);
+            let newArray = [];
+            newArray.push(["Destinations", "Followers"])
+            for (let index = 0; index < result.data.length; index++) {
+                const element = result.data[index];
+                newArray.push([element.Destination, element.FollowerCount])
+            }
+            setArrayCsv(newArray);
         } catch (error) {
             console.log(error);
         }
@@ -72,14 +85,14 @@ function VacationsReport() {
     }, [])
 
     return (
-        <div>
-            <h1>Reports</h1>
+        <div className='reportDiv'>
+            <CSVLink filename={"Vacations Report.csv"}
+                className="btn btn-primary" data={arrayCsv}>Download CSV FIle</CSVLink>
             <div className='divChart'>
                 <Line style={{ width: "80%" }} options={options} data={data} />
             </div>
         </div>
     )
 }
-
 
 export default VacationsReport

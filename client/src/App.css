@@ -142,12 +142,12 @@
   width: 150px;
 }
 
-.cardContent{
+.cardContent {
   display: flex;
   justify-content: space-between;
 }
 
-.followBtn{
+.followBtn {
   color: white;
   border: 1px solid pink;
   height: 40px;
@@ -157,7 +157,7 @@
   border-radius: 100px;
 }
 
-.editAdminBtn{
+.editAdminBtn {
   color: white;
   border: 1px solid rgb(181, 203, 57);
   height: 30px;
@@ -167,7 +167,7 @@
   margin: 3px;
 }
 
-.deleteAdminBtn{
+.deleteAdminBtn {
   color: white;
   border: 1px solid rgb(142, 21, 47);
   height: 30px;
@@ -177,35 +177,45 @@
   margin: 3px;
 }
 
-.fa-user-circle-o{
-margin-left: 20px;
-display: flex;
+.fa-user-circle-o {
+  margin-left: 20px;
+  display: flex;
 }
 
-.welcomeUser{
+.welcomeUser {
   display: block;
   color: black;
   font-size: large;
-  margin:0px;
+  margin: 0px;
   margin-right: 20px;
 }
 
-.adminDivNavBar{
+.adminDivNavBar {
   display: -webkit-box;
 }
 
-.navbar-nav{
-align-items: center;
+.navbar-nav {
+  align-items: center;
 }
 
 
-.navbar1{
-height: 50px;
+.navbar1 {
+  height: 50px;
 }
 
 canvas {
-  width: 85%!important;
-  height: 600px!important;
+  width: 85% !important;
+  height: 600px !important;
   text-align: center;
   margin: auto;
+}
+
+.reportDiv {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.logout{
+  cursor: pointer;
+  color: white;
 }

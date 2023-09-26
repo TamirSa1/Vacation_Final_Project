@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
 import {
-    // MDBBtn,
     MDBContainer,
     MDBRow,
     MDBCol,
@@ -8,14 +7,12 @@ import {
     MDBCardBody,
     MDBCardImage,
     MDBInput,
-    // MDBIcon,
-    // MDBCheckbox
 }
     from 'mdb-react-ui-kit';
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 
-function Login() {
+function Login(props: any) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -58,6 +55,7 @@ function Login() {
             } else {
                 localStorage.setItem("user", JSON.stringify(result.data));
                 navigate("/vacations")
+                props.setIsLogin(true);
             }
         } catch (error) {
             console.log(error);

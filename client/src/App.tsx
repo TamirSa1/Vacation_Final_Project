@@ -7,17 +7,13 @@ import VacationsAdmin from "./components/Admin/VacationsAdmin"
 import VacationsReport from "./components/Admin/VacationsReport"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/home/Home';
+import { useState } from 'react';
 
 const routes = [
   {
     path: "/register",
     component: <Register></Register>,
     key: "register"
-  },
-  {
-    path: "/login",
-    component: <Login></Login>,
-    key: "login"
   },
   {
     path: "/vacations",
@@ -37,13 +33,15 @@ const routes = [
 ]
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
 
   return (
     <div>
       <BrowserRouter>
-        <NavBar></NavBar>
+        <NavBar isLogin={isLogin}></NavBar>
         <Routes>
           <Route index element={<Home></Home>}></Route>
+          <Route path="/login" element={<Login setIsLogin={setIsLogin}></Login>}></Route>
           {routes.map((route) => {
             return <Route path={route.path} key={route.key} element={route.component} />
           })}
