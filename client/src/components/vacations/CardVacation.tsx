@@ -38,7 +38,6 @@ function CardVacation(props: any) {
                         return vacation;
                     })
                     props.setVacationsArray(changingArray);
-                    props.setFilteredArray(changingArray);
                     let number = followersCount;
                     number -= 1;
                     setFollowersCount(number);
@@ -53,7 +52,6 @@ function CardVacation(props: any) {
                         return vacation;
                     })
                     props.setVacationsArray(changingArray);
-                    props.setFilteredArray(changingArray);
                     let number = followersCount;
                     number += 1;
                     setFollowersCount(number);

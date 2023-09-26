@@ -183,12 +183,29 @@ display: flex;
 }
 
 .welcomeUser{
+  display: block;
+  color: black;
+  font-size: large;
+  margin:0px;
+  margin-right: 20px;
+}
 
+.adminDivNavBar{
+  display: -webkit-box;
+}
+
+.navbar-nav{
+align-items: center;
+}
+
+
+.navbar1{
+height: 50px;
 }
 
 canvas {
-  width: 80%!important;
-  height: 500px!important;
+  width: 85%!important;
+  height: 600px!important;
   text-align: center;
   margin: auto;
 }
