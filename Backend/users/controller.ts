@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { pool } from "../database/index";
+import bcrypt from "bcrypt";
 
 async function usersRegisteration(request: Request, response: Response) {
     try {
@@ -11,10 +12,13 @@ async function usersRegisteration(request: Request, response: Response) {
         console.log(checkingEmail[0][0].number);
         let verifyEmail = checkingEmail[0][0].number;
         if (verifyEmail <= 0) {
-            const query = 'INSERT INTO Users (FirstName, LastName, Email, Password, Role) VALUES (?, ?, ?, ?, ?)';
-            const result = await pool.execute(query, [usersRegisteration.FirstName, usersRegisteration.LastName, usersRegisteration.Email, usersRegisteration.Password, 'User']);
-            const [data] = result;
-            response.send(data);
+            const saltRounds = 10;
+            bcrypt.hash(usersRegisteration.Password, saltRounds, async function (err: any, hash: any) {
+                const query = 'INSERT INTO Users (FirstName, LastName, Email, Password, Role) VALUES (?, ?, ?, ?, ?)';
+                const result = await pool.execute(query, [usersRegisteration.FirstName, usersRegisteration.LastName, usersRegisteration.Email, hash, 'User']);
+                const [data] = result;
+                response.send(data);
+            });
         }
         else {
             response.send("Email is taken")
@@ -29,13 +33,19 @@ async function userLogin(request: Request, response: Response) {
     try {
         const loginUser = request.body;
         console.log(loginUser);
-        const emailCheckQuery = 'select * from users where email = ? and password = ?'
-        const checkingEmail: any = await pool.execute(emailCheckQuery, [loginUser.Email, loginUser.Password])
+        const emailCheckQuery = 'select * from users where email = ?'
+        const checkingEmail: any = await pool.execute(emailCheckQuery, [loginUser.Email])
         console.log(checkingEmail[0]);
         if (checkingEmail[0].length === 0) {
-            response.send("Email or Password is not available")
+            response.send("Email is not available")
         } else {
-            response.send(checkingEmail[0][0])
+            bcrypt.compare(loginUser.Password, checkingEmail[0][0].Password, function (err, result) {
+                if (result == true) {
+                    response.send(checkingEmail[0][0])
+                } else {
+                    response.send("Password is incorrect")
+                }
+            });
         }
     } catch (error) {
         console.log(error)

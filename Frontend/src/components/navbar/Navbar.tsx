@@ -26,7 +26,6 @@ function NavBar(props: any) {
         <div>
             <Navbar bg="primary" data-bs-theme="dark" className='navbar1'>
                 <Nav className="me-auto">
-                    <Navbar.Brand href="/">Home</Navbar.Brand>
                     <Nav.Link href="/register">Register</Nav.Link>
                     <Nav.Link href="/login">Login</Nav.Link>
                     <Nav.Link href="/vacations">Vacations</Nav.Link>

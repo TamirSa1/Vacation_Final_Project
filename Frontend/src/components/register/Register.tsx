@@ -66,7 +66,8 @@ function Register() {
             if (result.data === "Email is taken") {
                 alert("Email is taken")
             } else {
-                navigate("/vacation")
+                navigate("/vacations");
+                localStorage.setItem("user", JSON.stringify(result.data));
             }
         } catch (error) {
             console.log(error);

@@ -50,8 +50,8 @@ function Login(props: any) {
         try {
             const result = await axios.post("http://localhost:4000/users/login", loginObject)
             console.log(result.data);
-            if (result.data === "Email or Password is not available") {
-                alert("Email or Password is not available");
+            if (typeof result.data == "string") {
+                alert(result.data);
             } else {
                 localStorage.setItem("user", JSON.stringify(result.data));
                 navigate("/vacations")
