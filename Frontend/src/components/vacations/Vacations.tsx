@@ -13,13 +13,13 @@ function Vacations() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        let cardNumber = Math.ceil(filteredArray.length / 10)
+        let cardNumber = Math.ceil(vacationsArray.length / 10)
         let array = [];
         for (let number = 1; number <= cardNumber; number++) {
             array.push(number);
         }
         setItems(array);
-    }, [filteredArray])
+    }, [vacationsArray])
 
     function paginationClick(number: number) {
         setActive(number)
@@ -54,9 +54,9 @@ function Vacations() {
     return (
         <div>
             <h1 className="vacationH1">Vacations</h1>
-            <h4>Filterd vacation:</h4>
 
-            <ToggleButtons vacationsArray={vacationsArray} setFilteredArray={setFilteredArray} />
+            <ToggleButtons vacationsArray={vacationsArray} setFilteredArray={setFilteredArray} filteredArray={filteredArray} setItems={setItems}
+            setActive={setActive}/>
 
             <div className='divCard'>
                 {filteredArray.map(oneVacation => {

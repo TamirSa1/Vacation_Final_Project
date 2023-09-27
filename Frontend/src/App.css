@@ -84,7 +84,7 @@
 .toggleBtnDiv {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .modal {
@@ -215,7 +215,15 @@ canvas {
   margin-top: 10px;
 }
 
-.logout{
+.logout {
   cursor: pointer;
   color: white;
+}
+
+
+.toggleButtonDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 230px;
 }
