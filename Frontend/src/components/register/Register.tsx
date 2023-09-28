@@ -54,7 +54,7 @@ function Register() {
     }
 
     async function addingUser() {
-        let userObject = {
+        let userObject : any = {
             FirstName: firstName,
             LastName: lastName,
             Email: email,
@@ -67,7 +67,10 @@ function Register() {
                 alert("Email is taken")
             } else {
                 navigate("/vacations");
-                localStorage.setItem("user", JSON.stringify(result.data));
+                userObject.Role = "User";
+                userObject.UserID = result.data.insertId;
+                userObject.Password = "";
+                localStorage.setItem("user", JSON.stringify(userObject));
             }
         } catch (error) {
             console.log(error);

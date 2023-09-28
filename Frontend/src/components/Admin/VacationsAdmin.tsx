@@ -32,6 +32,18 @@ function VacationsAdmin() {
     let errorImage: any = useRef(null);
 
     useEffect(() => {
+        let isLoggedIn: any = null
+        if (localStorage.getItem("user")) {
+            isLoggedIn = JSON.parse(localStorage.getItem("user") ?? '');
+        }  else {
+            navigate("/login")
+        }
+        if (isLoggedIn && isLoggedIn.Role !== 'Admin') {
+           navigate("/vacations")
+        }
+    }, []);
+
+    useEffect(() => {
         let cardNumber = Math.ceil(vacationsArray.length / 10)
         let array = [];
         for (let number = 1; number <= cardNumber; number++) {
