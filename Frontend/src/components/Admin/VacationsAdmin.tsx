@@ -61,7 +61,7 @@ function VacationsAdmin() {
     async function getVacations() {
         const followerId = JSON.parse(localStorage.getItem("user")!).UserID;
         try {
-            const result = await axios.get(`http://localhost:4000/vacations/${followerId}`)
+            const result = await axios.get(`/vacations/${followerId}`)
             console.log(result.data);
             setVacationsArray(result.data);
             const firstTenElements = result.data.slice(0, 10);
@@ -160,7 +160,7 @@ function VacationsAdmin() {
             Image: image
         }
         try {
-            const result = await axios.post("http://localhost:4000/vacations/addVacation", vacationObject)
+            const result = await axios.post("/vacations/addVacation", vacationObject)
             console.log(result.data);
             let afterAddingArray = vacationsArray;
             afterAddingArray.push(vacationObject);

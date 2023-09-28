@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -59,7 +59,7 @@ function VacationsReport() {
     async function getVacations() {
         const followerId = JSON.parse(localStorage.getItem("user")!).UserID;
         try {
-            const result = await axios.get(`http://localhost:4000/vacations/${followerId}`)
+            const result = await axios.get(`/vacations/${followerId}`)
             console.log(result.data);
             let xArray = result.data.map((vacation: any) => {
                 return vacation.Destination

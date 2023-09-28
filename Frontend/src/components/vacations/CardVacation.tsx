@@ -28,7 +28,7 @@ function CardVacation(props: any) {
             }
             try {
                 if (isFollowing) {
-                    const result = await axios.delete(`http://localhost:4000/followers/removeFollower?FollowerUserID=${followerObject.FollowerUserID}&FollowedVacationID=${followerObject.FollowedVacationID}`)
+                    const result = await axios.delete(`/followers/removeFollower?FollowerUserID=${followerObject.FollowerUserID}&FollowedVacationID=${followerObject.FollowedVacationID}`)
                     console.log(result.data);
                     setIsFollowing(false);
                     const changingArray = props.vacationsArray.map((vacation: any) => {
@@ -42,7 +42,7 @@ function CardVacation(props: any) {
                     number -= 1;
                     setFollowersCount(number);
                 } else {
-                    const result = await axios.post("http://localhost:4000/followers/adding", followerObject)
+                    const result = await axios.post("/followers/adding", followerObject)
                     console.log(result.data);
                     setIsFollowing(true);
                     const changingArray = props.vacationsArray.map((vacation: any) => {
@@ -61,24 +61,6 @@ function CardVacation(props: any) {
             }
         }
     }
-
-    // useEffect(() => {
-    //     checkIfUserIsFollowing();
-    // }, []);
-
-    // async function checkIfUserIsFollowing() {
-    //     if (localStorage.getItem("user")) {
-    //         try {
-    //             const followerUserID = JSON.parse(localStorage.getItem("user")!).UserID;
-    //             const followedVacationID = props.cardProps.VacationID;
-    //             const response = await axios.get(`http://localhost:4000/followers/check?FollowerUserID=${followerUserID}&FollowedVacationID=${followedVacationID}`);
-    //             console.log(response.data);
-    //             setIsFollowing(response.data.isFollowing);
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     }
-    // }
 
     return (
         <div>

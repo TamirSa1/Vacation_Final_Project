@@ -61,7 +61,7 @@ function Register() {
             Password: password
         }
         try {
-            const result = await axios.post("http://localhost:4000/users/register", userObject)
+            const result = await axios.post("/users/register", userObject)
             console.log(result.data);
             if (result.data === "Email is taken") {
                 alert("Email is taken")

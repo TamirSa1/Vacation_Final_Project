@@ -30,7 +30,7 @@ function Vacations() {
     async function getVacations() {
         const followerId = JSON.parse(localStorage.getItem("user")!).UserID;
         try {
-            const result = await axios.get(`http://localhost:4000/vacations/${followerId}`)
+            const result = await axios.get(`/vacations/${followerId}`)
             console.log(result.data);
             setVacationsArray(result.data);
             const firstTenElements = result.data.slice(0, 10);

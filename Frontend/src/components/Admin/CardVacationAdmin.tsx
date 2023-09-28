@@ -28,7 +28,7 @@ function CardVacationAdmin(props: any) {
 
     async function deleteVacationCard() {
         try {
-            const result = await axios.delete(`http://localhost:4000/vacations/deleteVacation/${props.cardProps.VacationID}`)
+            const result = await axios.delete(`/vacations/deleteVacation/${props.cardProps.VacationID}`)
             console.log(result.data);
             let afterDeleteArray = props.vacationsArray.filter((vacation: any) => vacation.VacationID !== props.cardProps.VacationID)
             props.setVacationsArray(afterDeleteArray);
@@ -106,7 +106,7 @@ function CardVacationAdmin(props: any) {
             ImageFileName: image
         }
         try {
-            const response = await axios.put(`http://localhost:4000/vacations/editVacation/${vacationIDToUpdate}`, updatedVacationData);
+            const response = await axios.put(`/vacations/editVacation/${vacationIDToUpdate}`, updatedVacationData);
             if (response.status === 204) {
                 console.log("Vacation updated successfully");
                 const clonedVacations = [...props.vacationsArray];
