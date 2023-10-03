@@ -28,15 +28,18 @@ function Vacations() {
     }
 
     async function getVacations() {
-        const followerId = JSON.parse(localStorage.getItem("user")!).UserID;
-        try {
-            const result = await axios.get(`/vacations/${followerId}`)
-            console.log(result.data);
-            setVacationsArray(result.data);
-            const firstTenElements = result.data.slice(0, 10);
-            setFilteredArray(firstTenElements);
-        } catch (error) {
-            console.log(error);
+        const followerId = JSON.parse(localStorage.getItem("user")!).userid;
+        console.log(followerId)
+        if(followerId){
+            try {
+                const result = await axios.get(`/api/vacations/${followerId}`)
+                console.log(result.data);
+                setVacationsArray(result.data);
+                const firstTenElements = result.data.slice(0, 10);
+                setFilteredArray(firstTenElements);
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 
@@ -61,7 +64,7 @@ function Vacations() {
             <div className='divCard'>
                 {filteredArray.map(oneVacation => {
                     return (
-                        <div key={oneVacation.VacationID}>
+                        <div key={oneVacation.vacationid}>
                             <CardVacation cardProps={oneVacation} vacationsArray={vacationsArray} setVacationsArray={setVacationsArray} setFilteredArray={setFilteredArray}></CardVacation>
                         </div>
                     )

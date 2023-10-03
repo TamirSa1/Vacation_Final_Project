@@ -28,9 +28,9 @@ function CardVacationAdmin(props: any) {
 
     async function deleteVacationCard() {
         try {
-            const result = await axios.delete(`/vacations/deleteVacation/${props.cardProps.VacationID}`)
+            const result = await axios.delete(`/api/vacations/deleteVacation/${props.cardProps.vacationid}`)
             console.log(result.data);
-            let afterDeleteArray = props.vacationsArray.filter((vacation: any) => vacation.VacationID !== props.cardProps.VacationID)
+            let afterDeleteArray = props.vacationsArray.filter((vacation: any) => vacation.vacationid !== props.cardProps.vacationid)
             props.setVacationsArray(afterDeleteArray);
             props.setFilteredArray(afterDeleteArray);
         } catch (error) {
@@ -95,22 +95,22 @@ function CardVacationAdmin(props: any) {
     };
 
     async function editVacation() {
-        const vacationIDToUpdate = props.cardProps.VacationID;
+        const vacationIDToUpdate = props.cardProps.vacationid;
         const updatedVacationData = {
-            VacationID: vacationIDToUpdate,
-            Destination: destination,
-            Description: description,
-            StartDate: startDate,
-            EndDate: endDate,
-            Price: price,
-            ImageFileName: image
+            vacationid: vacationIDToUpdate,
+            destination: destination,
+            description: description,
+            startdate: startDate,
+            enddate: endDate,
+            price: price,
+            imagefilename: image
         }
         try {
-            const response = await axios.put(`/vacations/editVacation/${vacationIDToUpdate}`, updatedVacationData);
+            const response = await axios.put(`/api/vacations/editVacation/${vacationIDToUpdate}`, updatedVacationData);
             if (response.status === 204) {
                 console.log("Vacation updated successfully");
                 const clonedVacations = [...props.vacationsArray];
-                const indexToEdit = clonedVacations.findIndex((vacation) => vacation.VacationID === vacationIDToUpdate);
+                const indexToEdit = clonedVacations.findIndex((vacation) => vacation.vacationid === vacationIDToUpdate);
                 if (indexToEdit !== -1) {
                     clonedVacations[indexToEdit] = updatedVacationData;
                     props.setVacationsArray(clonedVacations);
@@ -128,12 +128,12 @@ function CardVacationAdmin(props: any) {
 
     function showEditPopUp() {
         setShowPopup(!showPopup)
-        setDestination(props.cardProps.Destination)
-        setDescription(props.cardProps.Description);
-        setStartDate(new Date(props.cardProps.StartDate).toLocaleDateString('en-CA'));
-        setEndDate(new Date(props.cardProps.EndDate).toLocaleDateString('en-CA'));
-        setPrice(props.cardProps.Price);
-        setImage(props.cardProps.ImageFileName);
+        setDestination(props.cardProps.destination)
+        setDescription(props.cardProps.description);
+        setStartDate(new Date(props.cardProps.startdate).toLocaleDateString('en-CA'));
+        setEndDate(new Date(props.cardProps.enddate).toLocaleDateString('en-CA'));
+        setPrice(props.cardProps.price);
+        setImage(props.cardProps.imagefilename);
     }
 
     return (
@@ -177,7 +177,7 @@ function CardVacationAdmin(props: any) {
             </Popup>
 
             <Card className='cardVacation'>
-                <Card.Header className='CardHeader'>{props.cardProps.Destination}</Card.Header>
+                <Card.Header className='CardHeader'>{props.cardProps.destination}</Card.Header>
                 <Card.Content extra>
                     <button onClick={showEditPopUp} className='editAdminBtn'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pen" viewBox="0 0 16 16">
                         <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
@@ -188,7 +188,7 @@ function CardVacationAdmin(props: any) {
                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                     </svg> Delete</button>
                 </Card.Content>
-                <Image className='cardImg' src={props.cardProps.ImageFileName} />
+                <Image className='cardImg' src={props.cardProps.imagefilename} />
                 <Card.Content>
                     <Card.Meta>
                         <p className='date'>
@@ -197,10 +197,10 @@ function CardVacationAdmin(props: any) {
                                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z" />
                                 <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z" />
                             </svg>
-                            {new Date(props.cardProps.StartDate).toLocaleDateString(undefined, options)} - {new Date(props.cardProps.EndDate).toLocaleDateString(undefined, options)}</p>
+                            {new Date(props.cardProps.startdate).toLocaleDateString(undefined, options)} - {new Date(props.cardProps.enddate).toLocaleDateString(undefined, options)}</p>
                     </Card.Meta>
-                    <Card.Description className='cardDescription'>{props.cardProps.Description}</Card.Description>
-                    <Card className='priceCard'>Price - {props.cardProps.Price}$</Card>
+                    <Card.Description className='cardDescription'>{props.cardProps.description}</Card.Description>
+                    <Card className='priceCard'>Price - {props.cardProps.price}$</Card>
                 </Card.Content>
 
             </Card>

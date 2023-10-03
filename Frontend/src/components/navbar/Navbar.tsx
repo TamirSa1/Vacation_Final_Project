@@ -12,7 +12,7 @@ function NavBar(props: any) {
             isLoggedIn = JSON.parse(localStorage.getItem("user") ?? '');
             setUser(isLoggedIn);
         }
-        if (isLoggedIn && isLoggedIn.Role === 'Admin') {
+        if (isLoggedIn && isLoggedIn.role === 'Admin') {
             setAdmin(true);
         }
     }, [props.isLogin]);
@@ -35,7 +35,7 @@ function NavBar(props: any) {
                     </div> : ''}
                 </Nav>
                 <div className='welcomeNavBar'>
-                    {user ? <p className='welcomeUser'>Welcome, {user.FirstName} {user.LastName}</p> : <p>Welcome!</p>}
+                    {user ? <p className='welcomeUser'>Welcome, {user.firstname} {user.lastname}</p> : <p>Welcome!</p>}
                     {user ? <span onClick={logOut} className='logout'>LogOut</span> : <></>}
                 </div>
             </Navbar>

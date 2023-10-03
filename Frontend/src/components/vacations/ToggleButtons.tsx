@@ -19,7 +19,7 @@ function ToggleButtons(props: any) {
     function filterArray1() {
         if (!checked1) {
             const filteredVacations = props.vacationsArray.filter((vacation: any) => {
-                const startDate = new Date(vacation.StartDate);
+                const startDate = new Date(vacation.startdate);
                 return startDate > new Date();
             });
             console.log(filteredVacations);
@@ -40,8 +40,8 @@ function ToggleButtons(props: any) {
         if (!checked2) {
             const currentDate = new Date();
             const filteredVacations = props.vacationsArray.filter((vacation: any) => {
-                const startDate = new Date(vacation.StartDate);
-                const endDate = new Date(vacation.EndDate);
+                const startDate = new Date(vacation.startdate);
+                const endDate = new Date(vacation.enddate);
                 return currentDate >= startDate && currentDate <= endDate
             });
             console.log(filteredVacations);
@@ -60,7 +60,7 @@ function ToggleButtons(props: any) {
     function filteredArray3() {
         if (!checked3) {
             const filteredVacations = props.vacationsArray.filter((vacation: any) => {
-                return vacation.IsFollowing === 1;
+                return vacation.isfollowing === 1;
             })
             props.setFilteredArray(filteredVacations);
             paginationFilters(filteredVacations);

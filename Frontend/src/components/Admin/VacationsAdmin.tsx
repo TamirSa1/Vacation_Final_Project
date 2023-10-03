@@ -38,8 +38,8 @@ function VacationsAdmin() {
         }  else {
             navigate("/login")
         }
-        if (isLoggedIn && isLoggedIn.Role !== 'Admin') {
-           navigate("/vacations")
+        if (isLoggedIn && isLoggedIn.role !== 'Admin') {
+           navigate("/vacationsAdmin")
         }
     }, []);
 
@@ -59,9 +59,9 @@ function VacationsAdmin() {
     }
 
     async function getVacations() {
-        const followerId = JSON.parse(localStorage.getItem("user")!).UserID;
+        const followerId = JSON.parse(localStorage.getItem("user")!).userid;
         try {
-            const result = await axios.get(`/vacations/${followerId}`)
+            const result = await axios.get(`/api/vacations/${followerId}`)
             console.log(result.data);
             setVacationsArray(result.data);
             const firstTenElements = result.data.slice(0, 10);
@@ -151,17 +151,20 @@ function VacationsAdmin() {
     }
 
     async function addVacation() {
-        let vacationObject = {
-            Destination: destination,
-            Description: description,
-            StartDate: startDate,
-            EndDate: endDate,
-            Price: price,
-            Image: image
-        }
+        let vacationObject : any = {
+            destination: destination,
+            description: description,
+            startdate: startDate,
+            enddate: endDate,
+            price: price,
+            imagefilename: image,
+            followercount: 0,
+            isfollowing: 0
+        };
         try {
-            const result = await axios.post("/vacations/addVacation", vacationObject)
+            const result = await axios.post("/api/vacations/addVacation", vacationObject)
             console.log(result.data);
+            vacationObject.vacationid = result.data.vacationid;
             let afterAddingArray = vacationsArray;
             afterAddingArray.push(vacationObject);
             setFilteredArray(afterAddingArray);
@@ -213,7 +216,7 @@ function VacationsAdmin() {
             <div className='divCard'>
                 {filteredArray.map(oneVacation => {
                     return (
-                        <div key={oneVacation.VacationID}>
+                        <div key={oneVacation.vacationid}>
                             <CardVacationAdmin
                                 cardProps={oneVacation} 
                                 vacationsArray={vacationsArray} 

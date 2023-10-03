@@ -57,23 +57,23 @@ function VacationsReport() {
     };
 
     async function getVacations() {
-        const followerId = JSON.parse(localStorage.getItem("user")!).UserID;
+        const followerId = JSON.parse(localStorage.getItem("user")!).userid;
         try {
-            const result = await axios.get(`/vacations/${followerId}`)
+            const result = await axios.get(`/api/vacations/${followerId}`)
             console.log(result.data);
             let xArray = result.data.map((vacation: any) => {
-                return vacation.Destination
+                return vacation.destination
             })
             setDestinationsArray(xArray)
             let yArray = result.data.map((vacation: any) => {
-                return vacation.FollowerCount
+                return vacation.followercount
             });
             setFollowersArray(yArray);
             let newArray = [];
             newArray.push(["Destinations", "Followers"])
             for (let index = 0; index < result.data.length; index++) {
                 const element = result.data[index];
-                newArray.push([element.Destination, element.FollowerCount])
+                newArray.push([element.destination, element.followercount])
             }
             setArrayCsv(newArray);
         } catch (error) {

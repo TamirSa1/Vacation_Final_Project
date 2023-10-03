@@ -11,11 +11,6 @@ import { useState } from 'react';
 
 const routes = [
   {
-    path: "/register",
-    component: <Register></Register>,
-    key: "register"
-  },
-  {
     path: "/vacations",
     component: <Vacations></Vacations>,
     key: "vacations"
@@ -42,6 +37,7 @@ function App() {
         <Routes>
           <Route index element={<Home></Home>}></Route>
           <Route path="/login" element={<Login setIsLogin={setIsLogin}></Login>}></Route>
+          <Route path="/register" element={<Register setIsLogin={setIsLogin}></Register>}></Route>
           {routes.map((route) => {
             return <Route path={route.path} key={route.key} element={route.component} />
           })}

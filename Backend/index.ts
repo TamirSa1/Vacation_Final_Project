@@ -10,9 +10,9 @@ dotenv.config();
 const app = express();
 app.use(express.json()); 
 app.use(cors());
-app.use('/users' , usersRouter)
-app.use('/vacations' , vacationsRouter)
-app.use('/followers' , followersRouter)
+app.use('/api/users' , usersRouter)
+app.use('/api/vacations' , vacationsRouter)
+app.use('/api/followers' , followersRouter)
 
 app.use(express.static(path.join(__dirname, './dist')));
 

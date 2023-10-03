@@ -48,7 +48,7 @@ function Login(props: any) {
             Password: password
         }
         try {
-            const result = await axios.post("/users/login", loginObject)
+            const result = await axios.post("/api/users/login", loginObject)
             console.log(result.data);
             if (typeof result.data == "string") {
                 alert(result.data);

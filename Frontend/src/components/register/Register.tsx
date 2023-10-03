@@ -15,7 +15,7 @@ import {
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom"
 
-function Register() {
+function Register(props: any) {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -55,22 +55,23 @@ function Register() {
 
     async function addingUser() {
         let userObject : any = {
-            FirstName: firstName,
-            LastName: lastName,
-            Email: email,
-            Password: password
+            firstname: firstName,
+            lastname: lastName,
+            email: email,
+            password: password
         }
         try {
-            const result = await axios.post("/users/register", userObject)
+            const result = await axios.post("/api/users/register", userObject)
             console.log(result.data);
             if (result.data === "Email is taken") {
                 alert("Email is taken")
             } else {
                 navigate("/vacations");
-                userObject.Role = "User";
-                userObject.UserID = result.data.insertId;
-                userObject.Password = "";
+                userObject.role = "User";
+                userObject.userid = result.data.userid;
+                userObject.password = "";
                 localStorage.setItem("user", JSON.stringify(userObject));
+                props.setIsLogin(true);
             }
         } catch (error) {
             console.log(error);

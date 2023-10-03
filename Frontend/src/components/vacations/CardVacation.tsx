@@ -6,12 +6,12 @@ import { useEffect, useState } from 'react';
 
 function CardVacation(props: any) {
     const [isFollowing, setIsFollowing] = useState(false);
-    const [followersCount, setFollowersCount] = useState(props.cardProps.FollowerCount);
+    const [followersCount, setFollowersCount] = useState(props.cardProps.followercount);
     const navigate = useNavigate();
     const options: any = { day: 'numeric', month: 'numeric', year: 'numeric' };
 
     useEffect(() => {
-        if (props.cardProps.IsFollowing == 1) {
+        if (props.cardProps.isfollowing == 1) {
             setIsFollowing(true);
         } else {
             setIsFollowing(false);
@@ -23,36 +23,36 @@ function CardVacation(props: any) {
             navigate("/login")
         } else {
             const followerObject = {
-                FollowerUserID: JSON.parse(localStorage.getItem("user")!).UserID,
-                FollowedVacationID: props.cardProps.VacationID
+                FollowerUserID: JSON.parse(localStorage.getItem("user")!).userid,
+                FollowedVacationID: props.cardProps.vacationid
             }
             try {
                 if (isFollowing) {
-                    const result = await axios.delete(`/followers/removeFollower?FollowerUserID=${followerObject.FollowerUserID}&FollowedVacationID=${followerObject.FollowedVacationID}`)
+                    const result = await axios.delete(`/api/followers/removeFollower?FollowerUserID=${followerObject.FollowerUserID}&FollowedVacationID=${followerObject.FollowedVacationID}`)
                     console.log(result.data);
                     setIsFollowing(false);
                     const changingArray = props.vacationsArray.map((vacation: any) => {
-                        if (vacation.VacationID === followerObject.FollowedVacationID) {
-                            vacation.IsFollowing = 0;
+                        if (vacation.vacationid === followerObject.FollowedVacationID) {
+                            vacation.isfollowing = 0;
                         }
                         return vacation;
                     })
                     props.setVacationsArray(changingArray);
-                    let number = followersCount;
+                    let number = Number(followersCount);
                     number -= 1;
                     setFollowersCount(number);
                 } else {
-                    const result = await axios.post("/followers/adding", followerObject)
+                    const result = await axios.post("/api/followers/adding", followerObject)
                     console.log(result.data);
                     setIsFollowing(true);
                     const changingArray = props.vacationsArray.map((vacation: any) => {
-                        if (vacation.VacationID === followerObject.FollowedVacationID) {
-                            vacation.IsFollowing = 1;
+                        if (vacation.vacationid === followerObject.FollowedVacationID) {
+                            vacation.isfollowing = 1;
                         }
                         return vacation;
                     })
                     props.setVacationsArray(changingArray);
-                    let number = followersCount;
+                    let number = Number(followersCount);
                     number += 1;
                     setFollowersCount(number);
                 }
@@ -67,13 +67,13 @@ function CardVacation(props: any) {
 
             <Card className='cardVacation'>
                 <Card.Content extra className='cardContent'>
-                    <Card.Header className='CardHeader'>{props.cardProps.Destination}</Card.Header>
+                    <Card.Header className='CardHeader'>{props.cardProps.destination}</Card.Header>
                     <div>
                         <Button onClick={followButton} className='followBtn' style={{ backgroundColor: isFollowing ? "#0D6EFD" : "rgb(193, 78, 193)" }}>{isFollowing ? "Unfollow" : "Follow"}</Button>
                         <p className="fa fa-user-circle-o">Followers- {followersCount}</p>
                     </div>
                 </Card.Content>
-                <Image className='cardImg' src={props.cardProps.ImageFileName} />
+                <Image className='cardImg' src={props.cardProps.imagefilename} />
                 <Card.Content>
                     <Card.Meta>
                         <p className='date'>
@@ -82,10 +82,10 @@ function CardVacation(props: any) {
                                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z" />
                                 <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z" />
                             </svg>
-                            {new Date(props.cardProps.StartDate).toLocaleDateString(undefined, options)} - {new Date(props.cardProps.EndDate).toLocaleDateString(undefined, options)}</p>
+                            {new Date(props.cardProps.startdate).toLocaleDateString(undefined, options)} - {new Date(props.cardProps.enddate).toLocaleDateString(undefined, options)}</p>
                     </Card.Meta>
-                    <Card.Description className='cardDescription'>{props.cardProps.Description}</Card.Description>
-                    <Card className='priceCard'>Price - {props.cardProps.Price}$</Card>
+                    <Card.Description className='cardDescription'>{props.cardProps.description}</Card.Description>
+                    <Card className='priceCard'>Price - {props.cardProps.price}$</Card>
                 </Card.Content>
             </Card>
 
