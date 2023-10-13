@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import React , { useEffect, useRef, useState } from "react";
 import CardVacationAdmin from "./CardVacationAdmin";
 import Pagination from 'react-bootstrap/Pagination';
 import { useNavigate } from 'react-router-dom';
@@ -180,8 +180,8 @@ function VacationsAdmin() {
         <div>
             <h1 className="vacationH1">Vacations Admin</h1>
 
-            <Button onClick={openPopUp} className="addVacationAdminBtn">Add Vacation</Button>
-            <Popup show={showPopup} handleClose={openPopUp}>
+            <Button onClick={openPopUp} className="addVacationAdminBtn" data-testid="addVacationAdminBtn">Add Vacation</Button>
+            <Popup show={showPopup} handleClose={openPopUp} >
 
                 <label>Add Destination</label>
                 <Form.Control value={destination} onChange={(e) => setDestination(e.target.value)} type="text" placeholder="Destination" />
@@ -192,12 +192,12 @@ function VacationsAdmin() {
                 <p ref={errorDescription} className='errorInput'>Fill the input to continue</p>
 
                 <label>Add Start Date</label>
-                <Form.Control className="startDateInputPopup" value={startDate} onChange={(e) => setStartDate(e.target.value)} type="date" />
+                <Form.Control data-testid="startDate" className="startDateInputPopup" value={startDate} onChange={(e) => setStartDate(e.target.value)} type="date" />
                 <p ref={errorStartDate} className='errorInput'>Fill the input to continue</p>
                 <p ref={errorCurrentStartDate} className='errorInput'>Start Date not valid</p>
 
                 <label>Add End Date</label>
-                <Form.Control className="endDateInputPopup" value={endDate} onChange={(e) => setEndDate(e.target.value)} type="date" />
+                <Form.Control data-testid="endDate" className="endDateInputPopup" value={endDate} onChange={(e) => setEndDate(e.target.value)} type="date" />
                 <p ref={errorEndDate} className='errorInput'>Fill the input to continue</p>
                 <p ref={errorEndBeforeStart} className='errorInput'>End Date not valid</p>
 
@@ -224,7 +224,6 @@ function VacationsAdmin() {
                                 setFilteredArray={setFilteredArray} 
                                 setShowPopup={setShowPopup}
                                 setDestination={setDestination}
-
                                 >
                             </CardVacationAdmin>
                         </div>

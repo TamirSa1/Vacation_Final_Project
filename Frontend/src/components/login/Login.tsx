@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import React ,{ useState, useRef } from 'react';
 import {
     MDBContainer,
     MDBRow,
@@ -71,7 +71,7 @@ function Login(props: any) {
                         <MDBRow>
                             <MDBCol md='10' lg='6' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
 
-                                <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login</p>
+                                <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login User</p>
 
                                 <div className="mb-4">
                                     <label>Email</label>

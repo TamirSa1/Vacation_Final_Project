@@ -1,6 +1,5 @@
-import { useState, useRef } from 'react';
+import React , { useState, useRef } from 'react';
 import {
-    // MDBBtn,
     MDBContainer,
     MDBRow,
     MDBCol,
@@ -8,8 +7,6 @@ import {
     MDBCardBody,
     MDBCardImage,
     MDBInput,
-    // MDBIcon,
-    // MDBCheckbox
 }
     from 'mdb-react-ui-kit';
 import axios from 'axios';
@@ -29,26 +26,41 @@ function Register(props: any) {
     let errorPassword: any = useRef(null)
 
     function ClickRegister() {
-        if (firstName === "") {
+        if (firstName == "") {
             errorFirstName.current.style.display = "block";
             return
         }
-        if (lastName === "") {
+        else {
+            errorFirstName.current.style.display = "none";
+        }
+        if (lastName == "") {
             errorLastName.current.style.display = "block";
             return
+        }
+        else {
+            errorLastName.current.style.display = "none";
         }
         if (email === "") {
             errorEmail.current.style.display = "block";
             return
+        }
+        else {
+            errorEmail.current.style.display = "none";
         }
         var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (!email.match(mailformat)) {
             correctEmail.current.style.display = "block";
             return
         }
+        else {
+            correctEmail.current.style.display = "none";
+        }
         if (password.length < 4) {
             errorPassword.current.style.display = "block";
             return
+        }
+        else {
+            errorPassword.current.style.display = "none";
         }
         addingUser()
     }
@@ -87,31 +99,31 @@ function Register(props: any) {
                         <MDBRow>
                             <MDBCol md='10' lg='6' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
 
-                                <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Register</p>
+                                <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Register User</p>
 
                                 <div className="mb-4">
                                     <label>First Name</label>
                                     <MDBInput value={firstName} onChange={(e) => setFirstName(e.target.value)} id='form1' type='text' className='w-100' />
-                                    <p ref={errorFirstName} className='errorInput'>Fill the input to continue</p>
+                                    <p ref={errorFirstName} className='errorInput'>Fill the First Name input to continue</p>
                                 </div>
 
                                 <div className="mb-4">
                                     <label>Last Name</label>
                                     <MDBInput value={lastName} onChange={(e) => setLastName(e.target.value)} id='form2' type='text' />
-                                    <p ref={errorLastName} className='errorInput'>Fill the input to continue</p>
+                                    <p ref={errorLastName} className='errorInput' id="errorlastName">Fill the Last Name input to continue</p>
                                 </div>
 
                                 <div className="mb-4">
                                     <label>Email</label>
                                     <MDBInput value={email} onChange={(e) => setEmail(e.target.value)} id='form3' type='email' />
-                                    <p ref={errorEmail} className='errorInput'>Fill the input to continue</p>
+                                    <p ref={errorEmail} className='errorInput'>Fill the Email input to continue</p>
                                     <p ref={correctEmail} className='errorInput'>Please use a valid email address</p>
                                 </div>
 
                                 <div className="mb-4">
                                     <label>Password</label>
                                     <MDBInput value={password} onChange={(e) => setPassword(e.target.value)} id='form4' type='password' />
-                                    <p ref={errorPassword} className='errorInput'>The password shoul be a 4 characters</p>
+                                    <p ref={errorPassword} className='errorInput'>The password should be a 4 characters</p>
                                 </div>
 
                                 <button onClick={ClickRegister} className='loginBtn'>Register</button>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Card, Image } from 'semantic-ui-react'
-import { useRef, useState } from "react";
+import React , { useRef, useState } from "react";
 import Popup from './Popup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -24,7 +24,6 @@ function CardVacationAdmin(props: any) {
     let errorPrice: any = useRef(null);
     let errorPriceLarger: any = useRef(null);
     let errorImage: any = useRef(null);
-
 
     async function deleteVacationCard() {
         try {

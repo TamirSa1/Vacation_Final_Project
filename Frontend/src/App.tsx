@@ -1,4 +1,3 @@
-import './App.css'
 import NavBar from './components/navbar/Navbar';
 import Register from './components/register/Register';
 import Login from './components/login/Login';
@@ -8,6 +7,8 @@ import VacationsReport from "./components/Admin/VacationsReport"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/home/Home';
 import { useState } from 'react';
+import React from 'react';
+import './App.css'
 
 const routes = [
   {

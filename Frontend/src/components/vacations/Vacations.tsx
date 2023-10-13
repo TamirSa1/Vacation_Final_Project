@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React ,{ useEffect, useState } from "react";
 import CardVacation from "./CardVacation";
 import Pagination from 'react-bootstrap/Pagination';
 import ToggleButtons from "./ToggleButtons";
@@ -72,7 +72,7 @@ function Vacations() {
             </div>
             <Pagination className="pagination">{items.map(number => {
                 return (
-                    <Pagination.Item onClick={() => paginationClick(number)} key={number} active={number === active}>
+                    <Pagination.Item onClick={() => paginationClick(number)} key={number} active={number === active} data-testid={`paginaton${number}`} id={`paginaton${number}`}>
                         {number}
                     </Pagination.Item>
                 )
