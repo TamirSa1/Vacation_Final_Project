@@ -102,7 +102,6 @@ async function editVacation(request: Request, response: Response) {
             imagefilename,
             vacationid,
         ]);
-
         response.status(204).send();
     } catch (error) {
         console.error("Error updating vacation:", error);

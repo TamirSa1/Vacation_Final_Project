@@ -11,5 +11,4 @@ vacationsRouter.delete("/deleteVacation/:id", deleteVacation);
 
 vacationsRouter.put("/editVacation/:id", editVacation);
 
-
 export {vacationsRouter}

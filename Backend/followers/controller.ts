@@ -15,28 +15,6 @@ async function addingFollowers(request: Request, response: Response) {
   }
 }
 
-async function checkIfUserIsFollowing(request: Request, response: Response) {
-  try {
-    const followerUserID = request.query.FollowerUserID;
-    const followedVacationID = request.query.FollowedVacationID;
-
-    const query = `
-        SELECT * FROM Followers
-        WHERE FollowerUserID = $1 AND FollowedVacationID = $2
-      `;
-
-    const result: any[] = await pool.query(query, [followerUserID, followedVacationID]);
-    if (result[0].length > 0) {
-      response.json({ isFollowing: true });
-    } else {
-      response.json({ isFollowing: false });
-    }
-  } catch (error) {
-    console.error(error);
-    response.status(500).json({ error: "Internal server error" });
-  }
-}
-
 async function removeFollower(request: Request, response: Response) {
   try {
     const followerUserID = request.query.FollowerUserID;
@@ -50,4 +28,4 @@ async function removeFollower(request: Request, response: Response) {
   }
 }
 
-export { addingFollowers, checkIfUserIsFollowing, removeFollower }
+export { addingFollowers, removeFollower }
