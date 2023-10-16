@@ -1,6 +1,7 @@
 # Vacation Final Project
 
 Welcome to my Vacation Final Project! 🎉
+
 you can explore the platform [here](https://tamir-vacations.onrender.com) and start your vacation adventure today. 🏝️🌞✈️
 
 ## Part 1: Project Overview
